@@ -1,0 +1,35 @@
+<style>
+    #content{
+        height:150px;
+        width:150px;
+        border:solid 1px black;
+    }
+</style>
+
+<div id="content">
+
+</div>
+
+<button class="btn btn-primary" id="remplir">
+Remplir
+</button>
+
+<script>
+$(function () {
+    document.querySelector('#remplir').addEventListener("click", loadDoc) 
+    })
+
+function loadDoc() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            document.querySelector("#content")
+                .innerHTML = xhttp.responseText;
+        }
+    }
+    xhttp.open("GET", "exo/donnees.txt");
+    xhttp.send();
+}
+
+
+</script>

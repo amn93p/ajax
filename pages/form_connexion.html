@@ -1,0 +1,41 @@
+<div class="card m-5">
+    <div class="card-header text-center">
+        <h4>Connexion</h4>
+    </div>
+    <div class="d-flex justify-content-center"><img src="https://media.tenor.com/qnE69DpVcCoAAAAM/mrfresh-sad-cat.gif" height="200" width="260"></div>
+    <div class="card-body p-4">
+        <form id="formConnexion">
+            <div class="mb-3">
+                <label for="login" class="form-label">Nom</label>
+                <input type="text" class="form-control" name="login" id="login" placeholder="Votre nom.." />
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Mot de passe</label>
+                <input type="password" class="form-control" name="password" id="password"
+                    placeholder="Votre mot de passe.." />
+                <div class="d-flex justify-content-center mt-4">
+                    <button type="submit" class="btn btn-danger">Se connecter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $("#formConnexion").on("submit", function (eventSubmit) {
+        eventSubmit.preventDefault();
+        $.ajax({
+            method: "post",
+            url: "login.php",
+            data: "login=" + $("[name='login']").val() + "&password=" + $("[name='password']").val(),
+            dataType: "html", //dataType: précise le type de données de la réponse HTTP
+            success: function (response) {
+                $("#content").html(response);
+            },
+            error: function (jqXHR, error, status) {
+                $("#content").html("<div class='alert alert-danger'>" + error + " - " + status + "</div>");
+            }
+
+        })
+    })
+</script>

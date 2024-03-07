@@ -9,8 +9,13 @@ window.addEventListener("load", function () {
         event.preventDefault();
         const xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                document.querySelector("#content").innerHTML = xhttp.responseText;
+            if (xhttp.readyState == 4) {
+                if (xhttp.status == 200) {
+                    document.querySelector("#content").innerHTML = xhttp.responseText;
+                } else if (xhttp.status == 404) {
+                    document.querySelector("#content").innerHTML = "<div class='alert alert-warning'>Erreur AJAX 404</div>"
+
+                }
             }
         }
 
