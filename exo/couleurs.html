@@ -1,0 +1,76 @@
+<script>
+    $(function () {
+        $("#remplir").on("click", function (event) {
+            $.ajax({
+                url: "/exo/donnees.txt",
+                success: function (response) {
+                    $("#content1").html(response);
+                },
+                error: function (jqXHR, status, error) {
+                    $("#content1").html("ERREUR AJAX : " + status);
+                }
+            })
+        });
+    })
+
+    window.addEventListener("load", function () {
+        const xhr = new XMLHttpRequest;
+        xhr.open("GET", "donnees.txt");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    document.querySelector("#content2").innerHTML = xhr.responseText;
+                }
+                else {
+                    document.querySelector("#content2").innerHTML = "ERREUR AJAX" + xhr.status;
+                }
+            }
+        }
+        document.querySelector("#remplir2").addEventListener("click", function () {
+            xhr.send();
+        })
+    })
+
+    ///////////////////////////
+    window.addEventListener("load", function () {
+    document.querySelector("#remplir3").addEventListener("click", function () {
+        fetch("donnees.txt")
+            .then(response => response.text())
+            .then(data => {
+                document.querySelector("#content3").innerHTML = data;
+            });
+    });
+});
+
+</script>
+<style>
+    [id^="content"] {
+        height: 150px;
+        width: 150px;
+        border: solid 1px black;
+    }
+</style>
+
+<div id="content1">
+
+</div>
+
+<button class="btn btn-primary" id="remplir">
+    Remplir
+</button>
+<hr>
+<div id="content2">
+
+</div>
+
+<button class="btn btn-primary" id="remplir2">
+    Remplir
+</button>
+<hr>
+<div id="content3">
+
+</div>
+
+<button class="btn btn-primary" id="remplir3">
+    Remplir
+</button>
